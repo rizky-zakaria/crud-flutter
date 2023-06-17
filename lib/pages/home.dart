@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crud_flutter/config/constanta.dart';
+import 'package:crud_flutter/pages/edit_data.dart';
 import 'package:crud_flutter/pages/tambah_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -49,9 +50,23 @@ class _HomePageState extends State<HomePage> {
               itemCount: _listdata.length,
               itemBuilder: ((context, index) {
                 return Card(
-                  child: ListTile(
-                    title: Text(_listdata[index]['name']),
-                    subtitle: Text(_listdata[index]['email']),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => EditData(
+                                    listData: {
+                                      "id": _listdata[index]['id'],
+                                      "name": _listdata[index]['name'],
+                                      "email": _listdata[index]['email'],
+                                    },
+                                  ))));
+                    },
+                    child: ListTile(
+                      title: Text(_listdata[index]['name']),
+                      subtitle: Text(_listdata[index]['email']),
+                    ),
                   ),
                 );
               })),
