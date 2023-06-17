@@ -22,7 +22,6 @@ class _TambahDataState extends State<TambahData> {
         "name": name.text,
         "password": password.text
       });
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       }

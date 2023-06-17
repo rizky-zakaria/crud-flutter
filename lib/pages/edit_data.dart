@@ -1,4 +1,5 @@
 import 'package:crud_flutter/config/constanta.dart';
+import 'package:crud_flutter/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +16,7 @@ class _EditDataState extends State<EditData> {
   TextEditingController id = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
+
   Future _ubahData() async {
     try {
       final response = await http
@@ -27,6 +29,7 @@ class _EditDataState extends State<EditData> {
       }
       return false;
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }
@@ -82,7 +85,23 @@ class _EditDataState extends State<EditData> {
                 TextButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        _ubahData().then((value) => {});
+                        _ubahData().then((value) {
+                          if (value) {
+                            const snackBar = SnackBar(
+                                content: Text('Data berhasil diubah!'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            const snackBar =
+                                SnackBar(content: Text('Data gagal diubah!'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const HomePage())));
                       }
                     },
                     style: TextButton.styleFrom(backgroundColor: Colors.amber),
