@@ -1,6 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
-
+import 'package:crud_flutter/config/constanta.dart';
 import 'package:crud_flutter/pages/tambah_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +16,7 @@ class _HomePageState extends State<HomePage> {
   bool _isloading = true;
   Future _getData() async {
     try {
-      final response = await http
-          .get(Uri.parse('https://c0c6-36-75-191-72.ngrok-free.app/api/user'));
+      final response = await http.get(Uri.parse(url + "user"));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         setState(() {
